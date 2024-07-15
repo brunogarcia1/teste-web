@@ -1,0 +1,69 @@
+<body>
+  
+
+<div class="product-consultation-container">
+  <h2>Consulta de Produtos</h2>
+
+  <div id="code-con" class="input-container">
+    <div id="cost-container" class="form-group">
+      <label for="productCode">Código</label>
+      <input type="text" id="productCode" [(ngModel)]="productCode" name="productCode">
+    </div>
+    <div class="form-group">
+      <label for="description">Descrição</label>
+      <input type="text" id="description" [(ngModel)]="description" name="description">
+    </div>
+    <div id="barcode-container" class="form-group">
+      <label for="barcode">Código de Barras</label>
+      <input type="text" id="barcode" [(ngModel)]="barcode" name="barcode">
+    </div>
+    <div id="cost-container" class="form-group">
+      <label for="cost">Custo</label>
+      <input type="number" id="cost" [(ngModel)]="cost" name="cost">
+    </div>
+    <div id="select" class="form-group">
+      <label for="filterOption" class="label-select">Filtrar por:</label>
+      <select id="filterOption" [(ngModel)]="filterOption" name="filterOption">
+        <option value="ativos">Somente Ativos</option>
+        <option value="excluidos">Somente Excluídos</option>
+        <option value="todos">Todos</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="product-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descrição</th>
+          <th>Código de Barras</th>
+          <th>Situação Castro</th>
+          <th>Custo</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.descricao }}</td>
+          <td>{{ product.codigoBarras }}</td>
+          <td>{{product.situacaoCadastro}}</td>
+          <td>{{ product.custo | currency }}</td>
+          <td>
+            <div class="example-button-container">
+              <button type="button" class="btn btn-secondary btn-sm small-btn" (click)="abrirPainel(product.id)">Detalhes</button>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+<mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+    (page)="handlePageEvent($event)" showFirstLastButtons></mat-paginator>
+<footer class="footer">teste</footer>

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend-test
+      dockerfile: Dockerfile
+    container_name: backend_container
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=VrPost@Server
+      - DB_NAME=bancoteste
+      - NODE_ENV=development
+    entrypoint: ["sh", ".docker/entrypoint.sh"]
+    depends_on:
+      - postgres
+    
+  frontend:
+    build:
+      context: ./frontend-test
+      dockerfile: Dockerfile
+    container_name: frontend_container
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:latest
+    container_name: testdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: bancoteste
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: VrPost@Server
